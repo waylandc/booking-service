@@ -1,11 +1,26 @@
 # booking-service
 
-RESTful micro service for my booking application
+RESTful micro service for my mobile application
 
+## Requirements
 Create an organization entity that holds a collection of BookableItems and Categories
 
 Create a 'BookableItem' to represent generic service/asset that can be booked for preset times.
 
+
+## System Design Considerations
+* Design using Microservice architecture
+    * Smaller components/services are easier to test and understand.
+    * Better fault isolation. i.e. memory leak in one service doesn't affect others
+    * Allows for quicker, easier deployments.
+* Implement the code with testability in mind
+    * Use Dependency Injection where ever possible with mock implementations of dependent interfaces. This encourages unit testing of components and removes the dependency of external interfaces which is more akin to integration testing.
+    * Aim for complete test coverage of our code base
+* TODO Create router/service registry so we can provide service discover
+* Implement circuit breakers to prevent service failure from cascading to other services
+
+## Database Schemas
+*Mysql*
 ```sql
 create table category(cat_id int(5) auto_increment primary key, name varchar(50) not null);
 
@@ -33,3 +48,5 @@ delete from org_category, organization, category
 where organization.org_id=org_category.org_id
 and category.cat_id=org_category.cat_id
 and category.cat_id=123;
+
+```
